@@ -6,6 +6,8 @@ namespace ContactManager.Repositories
     {
         Task<IEnumerable<Contact>> GetAll();
 
+        Task<IEnumerable<Contact>> GetAllByGroup(int groupId);
+
         Task<Contact> GetContact(int id);
 
         Task CreateContact(Contact contact);

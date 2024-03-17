@@ -12,7 +12,7 @@ namespace ContactManager.Models
 
         public string? Email { get; set; }
 
-        public int? GroupId { get; set; }
+        public int GroupId { get; set; }
 
         [ForeignKey("GroupId")]
         public Group? Group { get; set; }

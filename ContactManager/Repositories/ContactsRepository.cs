@@ -32,12 +32,17 @@ namespace ContactManager.Repositories
 
         public async Task<IEnumerable<Contact>> GetAll()
         {
-            return await _dbContext.contacts.ToListAsync();
+            return await _dbContext.contacts.Include(c => c.Group).ToListAsync();
+        }
+
+        public async Task<IEnumerable<Contact>> GetAllByGroup(int groupId)
+        {
+            return await _dbContext.contacts.Where(c => c.GroupId == groupId).Include(c => c.Group).ToListAsync();
         }
 
         public async Task<Contact> GetContact(int id)
         {
-            return await (_dbContext.contacts.FirstOrDefaultAsync(c => c.Id == id));
+            return await (_dbContext.contacts.Include(c => c.Group).FirstOrDefaultAsync(c => c.Id == id));
         }
 
         public async Task UpdateContact(Contact contact)

@@ -30,6 +30,13 @@ namespace ContactManager.Controllers
             return await _contactsRepository.GetAll();
         }
 
+        // GET: api/Contacts/group/{groupId}
+        [HttpGet("group/{groupId}")]
+        public async Task<IEnumerable<Contact>> GetContactsByGroup(int groupId)
+        {
+            return await _contactsRepository.GetAllByGroup(groupId);
+        }
+
         // GET: api/Contacts/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Contact>> GetContact(int id)
