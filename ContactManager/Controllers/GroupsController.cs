@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ContactManager.Data;
 using ContactManager.Models;
+using ContactManager.Repositories;
 
 namespace ContactManager.Controllers
 {
@@ -14,84 +15,55 @@ namespace ContactManager.Controllers
     [ApiController]
     public class GroupsController : ControllerBase
     {
-        private readonly ContactManagerDBContext _context;
+        private readonly IGroupsRepository _groupsRepository;
 
-        public GroupsController(ContactManagerDBContext context)
+        public GroupsController(IGroupsRepository groupsRepository)
         {
-            _context = context;
+            _groupsRepository = groupsRepository;
         }
 
         // GET: api/Groups
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Group>>> Getgroups()
+        public async Task<IEnumerable<Group>> GetGroups()
         {
-          if (_context.groups == null)
-          {
-              return NotFound();
-          }
-            return await _context.groups.ToListAsync();
+            return await _groupsRepository.GetAll();
         }
 
         // GET: api/Groups/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Group>> GetGroup(int id)
         {
-          if (_context.groups == null)
-          {
-              return NotFound();
-          }
-            var @group = await _context.groups.FindAsync(id);
+            var group = await _groupsRepository.GetGroup(id);
 
-            if (@group == null)
+            if (group == null)
             {
                 return NotFound();
             }
 
-            return @group;
+            return Ok(group);
         }
 
         // PUT: api/Groups/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutGroup(int id, Group @group)
+        public async Task<IActionResult> PutGroup(int id, Group group)
         {
-            if (id != @group.Id)
+            if (id != group.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(@group).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!GroupExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            await _groupsRepository.UpdateGroup(group);
+            
             return NoContent();
         }
 
         // POST: api/Groups
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Group>> PostGroup(Group @group)
+        public async Task<ActionResult<Group>> PostGroup(Group group)
         {
-          if (_context.groups == null)
-          {
-              return Problem("Entity set 'ContactManagerDBContext.groups'  is null.");
-          }
-            _context.groups.Add(@group);
-            await _context.SaveChangesAsync();
+            await _groupsRepository.CreateGroup(group);
 
             return CreatedAtAction("GetGroup", new { id = @group.Id }, @group);
         }
@@ -100,25 +72,9 @@ namespace ContactManager.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteGroup(int id)
         {
-            if (_context.groups == null)
-            {
-                return NotFound();
-            }
-            var @group = await _context.groups.FindAsync(id);
-            if (@group == null)
-            {
-                return NotFound();
-            }
-
-            _context.groups.Remove(@group);
-            await _context.SaveChangesAsync();
+            await _groupsRepository.DeleteGroup(id);
 
             return NoContent();
-        }
-
-        private bool GroupExists(int id)
-        {
-            return (_context.groups?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

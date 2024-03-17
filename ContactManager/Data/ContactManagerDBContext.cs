@@ -8,5 +8,7 @@ namespace ContactManager.Data
         public ContactManagerDBContext(DbContextOptions<ContactManagerDBContext> options) : base(options) { }
 
         public DbSet<Group> groups { get; set; }
+
+        public DbSet<Contact> contacts { get; set; }
     }
 }
