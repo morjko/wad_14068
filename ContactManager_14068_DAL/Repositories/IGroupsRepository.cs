@@ -1,6 +1,6 @@
-﻿using ContactManager.Models;
+﻿using ContactManager_14068_DAL.Models;
 
-namespace ContactManager.Repositories
+namespace ContactManager_14068_DAL.Repositories
 {
     public interface IGroupsRepository
     {

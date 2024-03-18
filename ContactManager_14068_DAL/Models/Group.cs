@@ -1,4 +1,5 @@
-﻿namespace ContactManager.Models
+﻿
+namespace ContactManager_14068_DAL.Models
 {
     public class Group
     {

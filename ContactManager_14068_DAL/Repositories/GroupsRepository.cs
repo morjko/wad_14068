@@ -1,8 +1,8 @@
-﻿using ContactManager.Data;
-using ContactManager.Models;
+﻿using ContactManager_14068_DAL.Data;
+using ContactManager_14068_DAL.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ContactManager.Repositories
+namespace ContactManager_14068_DAL.Repositories
 {
     public class GroupsRepository : IGroupsRepository
     {

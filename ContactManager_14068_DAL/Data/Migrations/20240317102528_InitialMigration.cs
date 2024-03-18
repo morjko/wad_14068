@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace ContactManager.Data.Migrations
+namespace ContactManager_14068_DAL.Data.Migrations
 {
     public partial class InitialMigration : Migration
     {

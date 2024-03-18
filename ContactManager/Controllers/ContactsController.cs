@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ContactManager.Data;
-using ContactManager.Models;
-using ContactManager.Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
+using ContactManager_14068_DAL.Models;
+using ContactManager_14068_DAL.Repositories;
 
-namespace ContactManager.Controllers
+namespace ContactManager_14068.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

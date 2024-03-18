@@ -1,5 +1,5 @@
-using ContactManager.Data;
-using ContactManager.Repositories;
+using ContactManager_14068_DAL.Data;
+using ContactManager_14068_DAL.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
